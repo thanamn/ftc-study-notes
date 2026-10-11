@@ -1,0 +1,15 @@
+# No machine-learning model weights (large, and not part of the notes)
+models/
+
+# Python
+__pycache__/
+*.pyc
+
+# Scratch / temp
+*.tmp
+*.log
+study_corpus/transcripts/*.partial.jsonl
+
+# OS junk
+Thumbs.db
+.DS_Store

@@ -1,0 +1,65 @@
+[
+  {
+    "file": "2026S1_FTC_Weekly_plan-9294-17857197396820.pdf",
+    "lecture": "FTC_Weekly_plan",
+    "slides": 1,
+    "visual_slides": 1,
+    "text_only_slides": 0
+  },
+  {
+    "file": "2110473_2026S1_FTC01_Dependable_Computing-9294-17866170220682.pdf",
+    "lecture": "FTC01_Dependable_Computing",
+    "slides": 72,
+    "visual_slides": 34,
+    "text_only_slides": 38
+  },
+  {
+    "file": "2110473_2026S1_FTC02_Fault_Tolerant_Systems-9294-17869528285980.pdf",
+    "lecture": "FTC02_Fault_Tolerant_Systems",
+    "slides": 51,
+    "visual_slides": 27,
+    "text_only_slides": 24
+  },
+  {
+    "file": "2110473_2026S1_FTC03_Byzantine_Fault_Tolerance-9294-17875577778080.pdf",
+    "lecture": "FTC03_Byzantine_Fault_Tolerance",
+    "slides": 36,
+    "visual_slides": 23,
+    "text_only_slides": 13
+  },
+  {
+    "file": "2110473_2026S1_FTC04_Rollback_Recovery-9294-17881367582371.pdf",
+    "lecture": "FTC04_Rollback_Recovery",
+    "slides": 51,
+    "visual_slides": 27,
+    "text_only_slides": 24
+  },
+  {
+    "file": "2110473_2026S1_FTC05_Coding_Theory-9294-17893470140015.pdf",
+    "lecture": "FTC05_Coding_Theory",
+    "slides": 92,
+    "visual_slides": 32,
+    "text_only_slides": 60
+  },
+  {
+    "file": "2110473_2026S1_FTC06_Self_Checking-9294-17893470503977.pdf",
+    "lecture": "FTC06_Self_Checking",
+    "slides": 78,
+    "visual_slides": 50,
+    "text_only_slides": 28
+  },
+  {
+    "file": "2110473_2026S1_FTC07_Fault_Masking-9294-17911614782797.pdf",
+    "lecture": "FTC07_Fault_Masking",
+    "slides": 71,
+    "visual_slides": 52,
+    "text_only_slides": 19
+  },
+  {
+    "file": "SYLLABUS_2110473-9294-17856842207218.pdf",
+    "lecture": "SYLLABUS_2110473",
+    "slides": 2,
+    "visual_slides": 1,
+    "text_only_slides": 1
+  }
+]
