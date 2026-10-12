@@ -54,7 +54,10 @@
 - **เส้นที่ทุก process กลับเวลาตรงกัน tj (aligned / synchronized)** → โดยทั่วไปเป็น **Strongly Consistent** (เกิดจาก coordinated/synchronous rollback)
 - **เส้นที่เวลาต่างกัน ti,tj,tk,tl (staggered / uncoordinated)** → เป็น **Consistent** ได้ถ้าไม่มี orphan ; ถ้ามี → **Inconsistent**
 
-> **ข้อควรระวัง:** การเป็น strongly consistent ขึ้นกับว่าเส้น **ไม่ตัดกับลูกศร message** จริง ไม่ได้ขึ้นกับว่าเวลาตรงกันหรือไม่เพียงอย่างเดียว — ให้ตรวจลูกศรที่ตัดผ่านเส้นเป็นหลัก
+> **ข้อควรระวัง (สำคัญ):** การเป็น strongly consistent ขึ้นกับว่าเส้น **ไม่ตัดกับลูกศร message** จริง ไม่ได้ขึ้นกับว่าเวลาตรงกันหรือไม่เพียงอย่างเดียว — ให้ใช้ **เกณฑ์ orphan / in-transit** ตัดสินเป็นหลัก
+> - **มุมเรขาคณิตล้วน ๆ:** เส้นแนวตั้ง (เวลาตรงกัน tj) มัก **ตัด message ที่กำลังส่ง** → ได้แค่ **Consistent** (ไม่ strongly) ; ส่วนเส้นที่เวลาต่างกันถ้าลากให้เลี่ยงลูกศรได้ทั้งหมด → **Strongly Consistent**
+> - **มุม coordinated checkpointing:** rollback แบบ synchronized (flush channel ก่อน) ถูกออกแบบให้เส้น "เวลาตรงกัน" เป็น **Strongly Consistent**
+> - **คำตอบที่ปลอดภัยที่สุด:** ตอบตามเกณฑ์ (orphan→Inconsistent, in-transit→Consistent, ไม่มีเลย→Strongly Consistent) แล้วอธิบายว่าเส้นเวลาเดียวกัน = coordinated (มัก strongly consistent) ส่วนเวลาไม่เท่ากัน = uncoordinated (consistent ถ้าไม่มี orphan)
 
 ## 1.5 รูปที่ 1.4 — Data Space (SEC-DED)
 
