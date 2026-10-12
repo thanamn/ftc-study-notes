@@ -54,19 +54,29 @@
 - **เส้นที่ทุก process กลับเวลาตรงกัน tj (aligned / synchronized)** → โดยทั่วไปเป็น **Strongly Consistent** (เกิดจาก coordinated/synchronous rollback)
 - **เส้นที่เวลาต่างกัน ti,tj,tk,tl (staggered / uncoordinated)** → เป็น **Consistent** ได้ถ้าไม่มี orphan ; ถ้ามี → **Inconsistent**
 
+**คำตอบสั้น:** เส้นที่กลับเวลาเดียวกัน tj = **Strongly Consistent** ; เส้นที่เวลาต่างกัน = **Consistent** (ทั้งคู่เป็น consistent recovery line ที่ใช้ได้ ต่างกันที่ "มี message ค้างใน transit หรือไม่")
+
 > **ข้อควรระวัง (สำคัญ):** การเป็น strongly consistent ขึ้นกับว่าเส้น **ไม่ตัดกับลูกศร message** จริง ไม่ได้ขึ้นกับว่าเวลาตรงกันหรือไม่เพียงอย่างเดียว — ให้ใช้ **เกณฑ์ orphan / in-transit** ตัดสินเป็นหลัก
 > - **มุมเรขาคณิตล้วน ๆ:** เส้นแนวตั้ง (เวลาตรงกัน tj) มัก **ตัด message ที่กำลังส่ง** → ได้แค่ **Consistent** (ไม่ strongly) ; ส่วนเส้นที่เวลาต่างกันถ้าลากให้เลี่ยงลูกศรได้ทั้งหมด → **Strongly Consistent**
 > - **มุม coordinated checkpointing:** rollback แบบ synchronized (flush channel ก่อน) ถูกออกแบบให้เส้น "เวลาตรงกัน" เป็น **Strongly Consistent**
 > - **คำตอบที่ปลอดภัยที่สุด:** ตอบตามเกณฑ์ (orphan→Inconsistent, in-transit→Consistent, ไม่มีเลย→Strongly Consistent) แล้วอธิบายว่าเส้นเวลาเดียวกัน = coordinated (มัก strongly consistent) ส่วนเวลาไม่เท่ากัน = uncoordinated (consistent ถ้าไม่มี orphan)
 
-## 1.5 รูปที่ 1.4 — Data Space (SEC-DED)
+## 1.5 รูปที่ 1.4 — Data Space 13×9 (SEC/DED)
 
-**[ต้องดูรูป]** กริดจุดที่จุดติดกัน (แนวตั้ง/แนวนอน/ทแยง) ห่างกัน Hamming distance 1; มีจุดดำ 1 จุดเป็น codeword แล้วเติม codeword อื่นสำหรับ **SEC/DED**
+**[จากรูป]** กริดจุด **13 คอลัมน์ × 9 แถว** มีจุดดำเป็น codeword อยู่ **ตรงกลาง** (แถว 5, คอลัมน์ 7); จุดที่ติดกัน (แนวตั้ง/แนวนอน/ทแยง รวม 8 ทิศ) ห่างกัน Hamming distance = 1
+⇒ ระยะในกริด = **Chebyshev distance** = Hamming distance
 
-**หลักการ:** SEC-DED ต้องมี **minimum distance ≥ 4** (SEC อย่างเดียวใช้ ≥3)
-**วิธีเติม:** วาง codeword ให้ระยะ Chebyshev (จำนวนก้าวต่ำสุดในกริด, ทแยงนับ 1) ระหว่างคู่ใด ๆ **≥ 4** เช่นวางเป็น lattice เว้นระยะสม่ำเสมอทุก 4 ช่อง
+**หลักการ (ท่อง):**
+- **SEC** (แก้ error 1) → ต้องการ min distance **≥ 3**
+- **DED** (ตรวจ error 2) → ต้องการ min distance **≥ 3**
+- **SEC-DED** (แก้ 1 **และ** ตรวจ 2) → ต้องการ min distance **≥ 4**
 
-> หมายเหตุ: "hamming distance = 1" ในโจทย์หมายถึง *จุดติดกัน* ห่าง 1 บิต ไม่ใช่ min distance ของรหัส (=1) เพราะถ้า min distance = 1 จะไม่มีการป้องกันเลย
+**วิธีเติมจุด:** วาง codeword ให้ห่างกัน **≥ 4 ช่องแบบ Chebyshev** จากจุดดำกลาง → จุดถัดไปอยู่ที่ระยะ (±4,0), (0,±4), (±4,±4), … แล้วทำเป็น lattice ซ้ำทั่วกริด
+(เทียบ: ถ้าต้องการแค่ SEC จะเว้นระยะ **≥ 3**)
+
+**ทำไมต้อง ≥4:** ถ้า min distance = 3 จะแก้ error 1 ได้อย่างเดียว แต่ถ้าเกิด error 2 บิต อาจถูก "แก้" ผิดเป็น codeword อื่น; การเพิ่ม parity bit อีก 1 บิตให้ระยะเป็น 4 ทำให้แยก single error กับ double error ได้พร้อมกัน (SEC-DED)
+
+> **[ไม่แน่ใจ]** ลวดลายจุดที่อาจารย์คาดหวังอาจเป็น lattice แบบเฉพาะ (เช่นเว้น 4 ทั้งแถวและคอลัมน์) — หัวใจคือ **min distance ≥ 4 สำหรับ SEC-DED** ; ถ้ามีรูปจริงส่งมา ผมทำลายจุดให้ตรงได้
 
 ---
 
